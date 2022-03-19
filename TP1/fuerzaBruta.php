@@ -13,21 +13,23 @@
     </form>
 
     <?php
-    require 'cifrador.php';
+    require 'decodificador.php';
 
     if (isset($_POST['submit'])) {
 
         $bestMessage = descifrarAFuerzaBruta($_POST['aMensaje']);
-
+        echo "El mensaje decodificado mas probable es: ";
         echo $bestMessage[0];
         echo "<br>";
+        echo "Con la clave: ";
         echo $bestMessage[1];
+        //echo "<br>";
 
-        $allPosibles = getAllPosiblesMessages($_POST['aMensaje']);
-        foreach ($allPosibles as $posible) {
-            echo $posible;
-            echo "<br>";
-        }
+        // $allPosibles = getAllPosiblesMessages($_POST['aMensaje']);
+        // foreach ($allPosibles as $posible) {
+        //     echo $posible;
+        //     echo "<br>";
+        // }
     }
     ?>
 </body>
