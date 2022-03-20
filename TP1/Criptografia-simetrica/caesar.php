@@ -1,14 +1,14 @@
 <html>
 
 <body>
-    <h2>Cifrado Vigenere</h2>
+    <h2>Cifrado Caesar</h2>
 
-    <form method="post" action="vigenere.php">
+    <form method="post" action="caesar.php">
 
         <label>Descifrar=Uncheck Cifrar=Chech</label>
         <input type="checkbox" name="isCifrarActivated">
-        <br><label>Ingrese la clave (tipo string)</label>
-        <input type="text" min=0 name="aClave">
+        <br><label>Ingrese la clave (tipo numerica)</label>
+        <input type="number" min=0 name="aClave">
         <br><label>Ingrese su mensaje</label>
         <input type="text" name="aMensaje">
         <br>
@@ -16,13 +16,13 @@
     </form>
 
     <?php
-    require 'cifradorVigenere.php';
+    require 'lib/cifrador.php';
 
     if (isset($_POST['submit'])) {
 
         $isCifrar = isset($_POST['isCifrarActivated']) ? True : False;
 
-        echo cifrarVigenere($_POST['aMensaje'], $_POST['aClave'], $isCifrar);
+        echo cifrar($_POST['aMensaje'], (int)$_POST['aClave'], $isCifrar);
     }
     ?>
 </body>

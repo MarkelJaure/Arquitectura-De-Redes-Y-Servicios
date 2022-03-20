@@ -13,16 +13,14 @@
     </form>
 
     <?php
-    require 'decodificador.php';
+    require 'lib/decodificador.php';
 
     if (isset($_POST['submit'])) {
 
         $bestMessage = descifrarAFuerzaBruta($_POST['aMensaje']);
-        echo "El mensaje decodificado mas probable es: ";
-        echo $bestMessage[0];
+        echo "El mensaje decodificado mas probable es: $bestMessage[0]";
         echo "<br>";
-        echo "Con la clave: ";
-        echo $bestMessage[1];
+        echo "Con la clave: $bestMessage[1]";
         //echo "<br>";
 
         // $allPosibles = getAllPosiblesMessages($_POST['aMensaje']);

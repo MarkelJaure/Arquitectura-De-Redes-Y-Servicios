@@ -6,7 +6,6 @@ function descifrarAFuerzaBruta($aMessage)
     $somePosiblesResults = getAllPosiblesMessages($aMessage);
     $aDiccionario = readDiccionario();
     $someCounts = array();
-
     foreach ($somePosiblesResults as $aPosibleResult) {
         $somePalabrasOfPosibleResult = explode(" ", $aPosibleResult);
         $countOfMatches = 0;
@@ -19,7 +18,6 @@ function descifrarAFuerzaBruta($aMessage)
 
         array_push($someCounts, $countOfMatches);
     }
-
     $largest = max($someCounts);
     $indexOfLargest = array_search($largest, $someCounts);
     $bestPossibleMessage = $somePosiblesResults[$indexOfLargest];
@@ -40,10 +38,30 @@ function matchPalabraWithDiccionario($aPalabra, $aDiccionario)
 function readDiccionario()
 {
     $aDiccionario = array();
-    $fh = fopen('diccionario.txt', 'r');
-    while ($line = fgets($fh)) {
-        array_push($aDiccionario, $line);
+
+    if (!file_exists("lib/diccionario.txt")) {
+        die("File not found");
     }
-    fclose($fh);
+
+    if ($file = fopen("lib/diccionario.txt", "r")) {
+        while (!feof($file)) {
+            $line = fgets($file);
+            array_push($aDiccionario, $line);
+        }
+        fclose($file);
+    } else {
+        echo 'fopen failed. reason: ', $php_errormsg;
+    }
     return $aDiccionario;
+}
+
+function getAllPosiblesMessages($aMessage)
+{
+    global $arrayAbecedario;
+    $somePosiblesResults = array();
+    for ($aKey = 0; $aKey < count($arrayAbecedario); $aKey++) {
+        array_push($somePosiblesResults, cifrar($aMessage, $aKey, False));
+    }
+
+    return $somePosiblesResults;
 }

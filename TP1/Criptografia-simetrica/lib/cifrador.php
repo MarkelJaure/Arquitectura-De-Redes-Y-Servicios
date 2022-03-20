@@ -4,9 +4,6 @@ $arrayAbecedario = array("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", 
 
 function cifrar($aMessage, $aKey, $isCifrarActivated)
 {
-
-    global $arrayAbecedario;
-
     $somePalabras = explode(" ", $aMessage);
 
     for ($n = 0; $n < count($somePalabras); $n++) {
@@ -45,16 +42,4 @@ function desplazarLetra($aLetra, $aKey, $isCifrarActivated)
     }
 
     return $newLetra;
-}
-
-function getAllPosiblesMessages($aMessage)
-{
-    global $arrayAbecedario;
-    $somePosiblesResults = array();
-
-    for ($aKey = 0; $aKey < count($arrayAbecedario); $aKey++) {
-        array_push($somePosiblesResults, cifrar($aMessage, $aKey, False));
-    }
-
-    return $somePosiblesResults;
 }
