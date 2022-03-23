@@ -29,6 +29,7 @@ function desplazarLetra($aLetra, $aKey, $isCifrarActivated)
     global $arrayAbecedario;
 
     $indexOfLetra = array_search($aLetra, $arrayAbecedario);
+    //$newLetra = $arrayAbecedario[getNewIndex($indexOfLetra,$aKey,$isCifrarActivated)];
     $modOfarrayAbecedario = count($arrayAbecedario);
 
     if ($isCifrarActivated) {
@@ -43,3 +44,19 @@ function desplazarLetra($aLetra, $aKey, $isCifrarActivated)
 
     return $newLetra;
 }
+
+// function getNewIndex($indexOfLetra, $aKey, $isCifrarActivated)
+// {
+//     global $arrayAbecedario;
+//     $modOfarrayAbecedario = count($arrayAbecedario);
+
+//     if ($isCifrarActivated) {
+//         return ((int)$indexOfLetra + $aKey) % $modOfarrayAbecedario;
+//     } else {
+//         $abs = ((int)$indexOfLetra - $aKey) % $modOfarrayAbecedario;
+//         if ($abs < 0) {
+//             $abs += $modOfarrayAbecedario;
+//         }
+//         return $abs;
+//     }
+// }
