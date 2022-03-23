@@ -11,15 +11,4 @@
 
 </body>
 
-<?php
-
-if (isset($_POST['register'])) {
-    echo "register";
-}
-
-if (isset($_POST['login'])) {
-    echo "login";
-}
-?>
-
 </html>

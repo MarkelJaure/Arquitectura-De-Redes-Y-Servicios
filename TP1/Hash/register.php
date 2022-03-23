@@ -8,45 +8,31 @@
         <br><label>Ingrese su clave</label>
         <input type="text" name="aClave">
         <br>
-        <input type="submit" value="click" name="submit">
+        <input type="submit" value="Registrarse" name="submit">
 
+    </form>
+
+    <form method="post" action="authApp.php">
+        <input type="submit" name="volver" class="button" value="Volver" />
     </form>
 </body>
 
 <?php
 
-require_once "config.php";
+require_once "lib/config.php";
+require "lib/auth.php";
 
 $username = $password = "";
 
 if (isset($_POST['submit'])) {
-    echo "register";
     $username = $_POST['aUser'];
     $password = $_POST['aClave'];
 
-    $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
-
-    if ($stmt = mysqli_prepare($link, $sql)) {
-        // Bind variables to the prepared statement as parameters
-        mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
-
-        // Set parameters
-        $param_username = $username;
-        $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
-
-        // Attempt to execute the prepared statement
-        if (mysqli_stmt_execute($stmt)) {
-            // Redirect to login page
-            header("location: login.php");
-        } else {
-            echo "Oops! Something went wrong. Please try again later.";
-        }
-
-        // Close statement
-        mysqli_stmt_close($stmt);
+    if (empty($username) || empty($password)) {
+        echo "Completar el usuario y clave";
+    } else {
+        register($username, $password);
     }
-
-    mysqli_close($link);
 }
 
 ?>
