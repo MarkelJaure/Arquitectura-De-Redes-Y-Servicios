@@ -21,9 +21,9 @@
    utilización de salt.
    El programa debe estar realizado en el lenguaje de programación PHP.
 
-   En el PhpMyAdmin crear una base de datos llamada "Arquitectura" (en caso de querer usar otra o ponerle otro nombre, modificar "lib/config.php"), dentro crear una tabla con las siguientes propiedades:
+   **R:** En el PhpMyAdmin crear una base de datos llamada "Arquitectura" (en caso de querer usar otra o ponerle otro nombre, modificar "lib/config.php"), dentro crear una tabla con las siguientes propiedades:
 
-```sql
+  ```sql
 CREATE TABLE users (
 id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 username VARCHAR(50) NOT NULL UNIQUE,
