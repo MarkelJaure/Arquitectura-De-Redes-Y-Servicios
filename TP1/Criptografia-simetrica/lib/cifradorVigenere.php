@@ -24,14 +24,14 @@ function cifrarPalabra($aPalabra, $theKeys, $isCifrarActivated)
 
     $newPalabra = str_split($aPalabra);
     for ($i = 0; $i < count($newPalabra); $i++) {
-        // echo $newPalabra[$i];
-        // echo " -> ";
-        // echo $theKeys[$theCount % count($theKeys)];
-        // echo " -> ";
+        echo $newPalabra[$i];
+        echo " -> ";
+        echo $theKeys[$theCount % count($theKeys)];
+        echo " -> ";
         $newPalabra[$i] = desplazarLetra($aPalabra[$i], $theKeys[$theCount % count($theKeys)], $isCifrarActivated);
         $theCount += 1;
-        // echo $newPalabra[$i];
-        // echo "<br>";
+        echo $newPalabra[$i];
+        echo "<br>";
     }
 
     return join("", $newPalabra);
