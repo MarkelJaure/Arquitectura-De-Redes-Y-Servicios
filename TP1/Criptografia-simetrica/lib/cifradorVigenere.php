@@ -22,7 +22,8 @@ function cifrarPalabra($aPalabra, $theKeys, $isCifrarActivated)
 {
     global $theCount;
 
-    $newPalabra = str_split($aPalabra);
+    $newPalabra = stringToChars($aPalabra);
+
     for ($i = 0; $i < count($newPalabra); $i++) {
         echo $newPalabra[$i];
         echo " -> ";
@@ -43,7 +44,7 @@ function changePalabraToArrayOfKeys($aPalabra)
 
     $someKeys = array();
 
-    foreach (str_split($aPalabra) as $aLetra) {
+    foreach (stringToChars($aPalabra) as $aLetra) {
         array_push($someKeys, array_search($aLetra, $arrayAbecedario));
     }
 

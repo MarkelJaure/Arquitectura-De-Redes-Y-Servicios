@@ -16,7 +16,7 @@ function cifrar($aMessage, $aKey, $isCifrarActivated)
 
 function desplazarPalabra($aPalabra, $aKey, $isCifrarActivated)
 {
-    $newPalabra = str_split($aPalabra);
+    $newPalabra = stringToChars($aPalabra);
     for ($i = 0; $i < count($newPalabra); $i++) {
         $newPalabra[$i] = desplazarLetra($aPalabra[$i], $aKey, $isCifrarActivated);
     }
@@ -49,4 +49,15 @@ function getNewIndex($indexOfLetra, $aKey, $isCifrarActivated)
         }
         return $abs;
     }
+}
+
+function stringToChars($aString)
+{
+    $arrayChars = array();
+
+    for ($i = 0, $length = mb_strlen($aString, 'UTF-8'); $i < $length; $i++) {
+        $arrayChars[] = mb_substr($aString, $i, 1, 'UTF-8');
+    }
+
+    return $arrayChars;
 }
