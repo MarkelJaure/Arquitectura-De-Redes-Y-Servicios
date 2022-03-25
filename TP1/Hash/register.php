@@ -5,7 +5,6 @@
 <body>
     <h2>Register en PHP</h2>
     <form method="post">
-        <!-- <form method="post" action="authApp.php"> -->
 
         <br><label>Ingrese su usuario:</label>
         <input class="input1" type="text" name="aUser" placeholder="Ingrese nuevo username..." required>
