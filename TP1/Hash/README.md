@@ -2,7 +2,7 @@
 
 1. Los algoritmos de hash (md5, sha-x, etc.) no se utilizan para cifrar mensajes. ¿Por qué?
 
-   **R:** Los algoritmos mencionados no se utilizan para el cifrado de mensajes debido a que ambos estan pensados como "algoritmos de resumen". Estos algoritmos de resumen tienen como objetivo garantizar la integridad de un archivo/mensaje (que no ha sido modificado), pero no pueden garantizar la confidencialidad del mismo. La resistencia de ambos algoritmos de hash ya tienen historial de haber sido comprometidos por lo que no se pueden confiar para el cifrado de mensajes.
+   **R:** Los algoritmos mencionados no se utilizan para el cifrado de mensajes debido a que ambos estan pensados como "algoritmos de resumen". Estos algoritmos de resumen tienen como objetivo garantizar la integridad de un archivo/mensaje (que no ha sido modificado), pero no pueden garantizar la confidencialidad del mismo. La resistencia de ambos algoritmos de hash ya tienen historial de haber sido comprometidos por lo que no se pueden confiar para el cifrado de mensajes. Ademas, son algoritmos unidireccionales en su hasheo, por lo que no son utiles ni eficientes si hay que cifrar y descifrar mensajes.
 
 2. Explique conceptualmente la utilidad de algoritmos de hash para:
    a) Autenticación de usuarios.

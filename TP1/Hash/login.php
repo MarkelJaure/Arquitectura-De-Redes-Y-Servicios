@@ -1,18 +1,22 @@
+<head>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
 <body>
     <h2>Login en PHP</h2>
     <form method="post">
 
-        <br><label>Ingrese su usuario</label>
-        <input type="text" name="aUser">
-        <br><label>Ingrese su clave</label>
-        <input type="text" name="aClave">
+        <br><label>Ingrese su usuario:</label>
+        <input class="input1" type="text" name="aUser" placeholder="Ingrese su usuario..." required>
+        <br><label>Ingrese su clave:</label>
+        <input class="input1" type="text" name="aClave" placeholder="Ingrese su clave..." style="margin-left: 15px;" required>
         <br>
-        <input type="submit" value="Iniciar sesion" name="submit">
+        <input class="login-button" type="submit" value="Iniciar sesion" name="submit">
 
     </form>
 
     <form method="post" action="authApp.php">
-        <input type="submit" name="volver" class="button" value="Volver" />
+        <input class="volver" type="submit" name="volver" class="button" value="Volver" />
     </form>
 </body>
 
