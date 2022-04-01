@@ -5,6 +5,16 @@ el par de llaves, enviar un mail encriptado a cada uno. Leer los mails recibidos
 compañeros en el browser que tiene la extensión Mailvelope instalada, y desde otro browser
 que no la tenga.
 
+Para la prueba de este ejercicio se realizaron 3 envíos de mails con diferentes configuraciones de claves para testear la aplicación (envío de mail desde un remitente "a" a un receptor "b")
+
+
+   - ***a)*** Envío de mail encriptado con clave privada de **"a"**: Esto concluye en que el receptor **"b"** recibirá un mail a desencriptar con la clave publica de **"a"**, con lo que sirve para verificar que el mail efectivamente fue escrito por **"a"**. Este mail puede ser leído por cualquier persona que tenga la clave publica de **"a"**
+    
+   - ***b)*** Envío de mail encriptado con clave publica de **"b"**: Esto concluye en que el mail solo puede ser leído por **"b"**. pero no se puede verificar por quien ha sido escrito.
+    
+   - ***c)*** Envió de mail encriptado con clave privada de **"a"** y clave publica de **"b"**: Esto concluye en que **"b"** puede confirmar que el mail fue enviado por **"a"** y ademas solo puede ser leído por **"b"**. Por lo que ningun otro receptor no podría desencriptarlo.
+
+
 2. Entorno Linux. Escribir un script de shell que copie el contenido de un directorio de nuestro
 home, en el home de un usuario de otra computadora. El script no debe revelar ninguna
 contraseña. Utilizar el anexo.
