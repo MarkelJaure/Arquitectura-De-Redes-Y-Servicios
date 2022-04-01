@@ -5,7 +5,7 @@ el par de llaves, enviar un mail encriptado a cada uno. Leer los mails recibidos
 compañeros en el browser que tiene la extensión Mailvelope instalada, y desde otro browser
 que no la tenga.
 
-Para la prueba de este ejercicio se realizaron 3 envíos de mails con diferentes configuraciones de claves para testear la aplicación (envío de mail desde un remitente "a" a un receptor "b")
+   **R:** Para la prueba de este ejercicio se realizaron 3 envíos de mails con diferentes configuraciones de claves para testear la aplicación (envío de mail desde un remitente "a" a un receptor "b")
 
 
    - ***a)*** Envío de mail encriptado con clave privada de **"a"**: Esto concluye en que el receptor **"b"** recibirá un mail a desencriptar con la clave publica de **"a"**, con lo que sirve para verificar que el mail efectivamente fue escrito por **"a"**. Este mail puede ser leído por cualquier persona que tenga la clave publica de **"a"**
@@ -19,9 +19,11 @@ Para la prueba de este ejercicio se realizaron 3 envíos de mails con diferentes
 home, en el home de un usuario de otra computadora. El script no debe revelar ninguna
 contraseña. Utilizar el anexo.
 
+   **R:** Se adjunta en el directorio TP2 el archivo copyfile.sh que contiene el script shell para copiar un archivo local a una computadora externa mediante SSH, sin revelar ninguna clave.
+
 3. Investigue qué es DKIM y explique cómo funciona y para qué se utiliza.
   
-    **DKIM** es el acrónimo de DomainKeys Identified Mail, un mecanismo diseñado para evitar la manipulación de los encabezados de los mails a través de una firma digital. El objetivo es evitar que los encabezados como el "From" de un mail y el contenido puedan ser modificados en el proceso de envío o manipulados intencionalmente por el remitente para hacerse pasar por otro.
+     **R:** ***DKIM*** es el acrónimo de DomainKeys Identified Mail, un mecanismo diseñado para evitar la manipulación de los encabezados de los mails a través de una firma digital. El objetivo es evitar que los encabezados como el "From" de un mail y el contenido puedan ser modificados en el proceso de envío o manipulados intencionalmente por el remitente para hacerse pasar por otro.
 
     Este funciona a través del hasheo del mail y la codificación asimétrica (Clave publica y clave privada) para asegurar la validez del correo.
 
