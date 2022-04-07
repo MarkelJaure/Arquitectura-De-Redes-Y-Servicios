@@ -18,6 +18,8 @@ Para este punto, se puede observar los pings enviados y recibidos. Se pueden ide
 
 **R:**
 
+### 1
+
 - ***a)***
 ```
 host -t ns google.com.ar
@@ -73,6 +75,11 @@ google.com.ar mail is handled by 0 smtp.google.com.
 host -t soa google.com.ar
 google.com.ar has SOA record ns1.google.com. dns-admin.google.com. 438780121 900 900 1800 60
 ```
-Para la organizacion facebook, la fecha mas antigua cacgeada es del 12 de diciembre de 1998
-12 Dec 1998 - 1 Apr 2022
+
+### 2
+
+Organizacion elegida: Google
+Sitio web: https://www.google.com/
+Version mas antigua cacheada: 11 Nov 1998
+Ultima version cacheada: 7 Apr 2022
 
