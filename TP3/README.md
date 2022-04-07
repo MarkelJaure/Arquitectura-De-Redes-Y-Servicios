@@ -79,7 +79,10 @@ google.com.ar has SOA record ns1.google.com. dns-admin.google.com. 438780121 900
 ### 2
 
 Organizacion elegida: Google
+
 Sitio web: https://www.google.com/
+
 Version mas antigua cacheada: 11 Nov 1998
+
 Ultima version cacheada: 7 Apr 2022
 
