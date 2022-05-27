@@ -75,6 +75,29 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   transform: translateY(4px);
 }
 
+.add-button {
+    width: 20%;
+    height: 30px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #3bc918;
+    cursor: pointer
+}
+
+.add-button:hover {
+  background-color: #1b7c12; /* Green */
+  color: white;
+}
+
+.add-button:active {
+  background-color: #1b7c12;
+  transform: translateY(4px);
+}
+
 .volver {
     width: 20%;
     height: 30px;
@@ -120,4 +143,33 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   background-color: #127c16;
   transform: translateY(4px);
 }
+
+.remove-button {
+    border: none;
+    border-radius: 5px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #c24040;
+}
+
+.remove-button:hover {
+  background-color: #7b2525; 
+  color: white;
+}
+
+.edit-button {
+    border: none;
+    border-radius: 5px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #4054c2;
+}
+
+.edit-button:hover {
+  background-color: #35257b; 
+  color: white;
+}
+
 

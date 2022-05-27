@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?1.0">
 
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,7 +12,7 @@
 <body>
     <h2>Tabla de usuarios</h2>
 
-    <table>
+    <table style="border: 1px solid black;">
         <tr>
             <th> N° </th>
             <th> Id </th>
@@ -27,7 +27,6 @@
         <tbody>
             <?php
             require_once "callAPI.php";
-
 
             $apiURL = 'http://localhost:3000/users/';
 
@@ -60,17 +59,12 @@
                     <td> <?php echo $user->permissionLevel; ?></td>
                     <td>
                         <form method="POST" action=<?php echo "userDetail.php?id=" . $user->id; ?> style="display: inline;">
-                            <button type="edit"><i class="fa fa-edit"></i></button>
+                            <button type="edit" class="edit-button"><i class="fa fa-edit"></i></button>
                         </form>
                     </td>
                     <td>
-                        <form method="post" style="display: inline;">
-                            <button type="delete" name=<?php echo "delete" . $user->id; ?>><i class="fa fa-trash"></i></button>
-                            <?php
-                            if (isset($_POST['delete' . $user->id])) { //TODO: Insertar logica de eliminado
-                                echo "Eliminando usuario: " . $user->id;
-                            }
-                            ?>
+                        <form method="POST" style="display: inline;">
+                            <button type="delete" class="remove-button" name=<?php echo "delete" . $user->id; ?>><i class="fa fa-trash"></i></button>
                         </form>
 
                     </td>
@@ -80,11 +74,16 @@
     </table>
 
     <form method="POST" action="userDetail.php">
-        <button class="add_button">Agregar usuario <i class="fa fa-plus"></i></button>
+        <button class="add-button">Agregar usuario <i class="fa fa-plus"></i></button>
     </form>
 
 
-
+    <?php
+    if (isset($_POST['delete' . $user->id])) { //TODO: No reload en el primer eliminado
+        $delete_data = callAPI("DELETE", $apiURL . $user->id, false);
+        header("Location: usersList.php");
+    }
+    ?>
 
 
 </body>

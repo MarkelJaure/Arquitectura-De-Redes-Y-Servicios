@@ -8,6 +8,9 @@ function callAPI($method, $url, $data)
             if ($data)
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
             break;
+        case "DELETE":
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+            break;
         case "PUT":
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
             if ($data)
@@ -27,9 +30,9 @@ function callAPI($method, $url, $data)
     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
     // EXECUTE:
     $result = curl_exec($curl);
-    if (!$result) {
-        die("Connection Failure");
-    }
+    // if (!$result) {
+    //     curl_close($curl);
+    // }
     curl_close($curl);
     return $result;
 }
