@@ -12,23 +12,8 @@ export class BooksRoutes extends CommonRoutesConfig {
   configureRoutes() {
     this.app.route(`/books`).get(BooksController.listBooks);
 
-    this.app.param(`bookId`, BooksMiddleware.extractBookId);
-    this.app
-      .route(`/books/:bookId`)
-      .all(BooksMiddleware.validateBookExists)
-      .get(BooksController.getBookById)
-      .delete(BooksController.removeBook);
-
-    this.app.put(`/books/:bookId`, [
-      BooksMiddleware.validateRequiredBookBodyFields,
-      BooksController.put,
-    ]);
-
-    this.app.patch(`/books/:booksId`, [BooksController.patch]);
-
     //Nuevos metodos
 
-    //this.app.param(`userId`, UsersMiddleware.extractUserId);
     this.app.param(`userId`, BooksMiddleware.extractUserId);
     this.app
       .route(`/users/:userId/books`)
