@@ -79,7 +79,7 @@
 
 
     <?php
-    if (isset($_POST['delete' . $user->id])) { //TODO: No reload en el primer eliminado
+    if (isset($_POST['delete' . $user->id])) {
         $delete_data = callAPI("DELETE", $apiURL . $user->id, false);
         header("Location: usersList.php");
     }

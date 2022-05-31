@@ -68,3 +68,11 @@ class User
     public $lastName;
     public $permissionLevel;
 }
+
+class Book
+{
+    public $id;
+    public $userId;
+    public $title;
+    public $autor;
+}
