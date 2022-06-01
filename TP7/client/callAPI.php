@@ -1,4 +1,8 @@
 <?php
+
+$apiURL = 'http://localhost:3000/';
+
+
 function callAPI($method, $url, $data)
 {
     $curl = curl_init();

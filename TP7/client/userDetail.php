@@ -12,9 +12,8 @@
 require_once "callAPI.php";
 
 $id = getParam("id");
-$apiURL = 'http://localhost:3000/users/';
 
-$get_data = callAPI('GET', $apiURL . $id, false);
+$get_data = callAPI('GET',  $apiURL . "users/" . $id, false);
 $response = json_decode($get_data, true);
 $actualUser = new User();
 if ($response !== null) {
@@ -84,12 +83,10 @@ if ($response !== null) {
 
                 if ($theId !== "") { //Editar usuario (PUT / PATCH)
                     echo "Actualizando Usuario";
-                    $put_data = callAPI('PUT', $apiURL . $theId, json_encode($newUser));
-                    $get_data = callAPI('GET', $apiURL . $theId, false);
+                    $put_data = callAPI('PUT', $apiURL . "users/" . $theId, json_encode($newUser));
                 } else { //Crear usuario (POST)
                     echo "Creando Usuario";
-                    $post_data = callAPI('POST', $apiURL, json_encode($newUser));
-                    $get_data = callAPI('GET', $apiURL . $theId, false);
+                    $post_data = callAPI('POST', $apiURL . "users/", json_encode($newUser));
                 }
                 header("Location: usersList.php");
             }
@@ -101,6 +98,10 @@ if ($response !== null) {
 
     <form method="post" action="usersList.php">
         <input style="margin-left: 30px" class="volver" type="submit" name="volver" class="button" value="Volver" />
+    </form>
+
+    <form method="post" action=<?php echo "booksList.php?id=" . $actualUser->id; ?>>
+        <input style="margin-left: 30px" class="add-button" type="submit" name="volver" class="button" value="Ver libros" />
     </form>
 
 </body>

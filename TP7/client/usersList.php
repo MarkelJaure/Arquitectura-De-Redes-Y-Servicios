@@ -28,9 +28,7 @@
             <?php
             require_once "callAPI.php";
 
-            $apiURL = 'http://localhost:3000/users/';
-
-            $get_data = callAPI('GET', $apiURL, false);
+            $get_data = callAPI('GET', $apiURL . "users/", false);
             $response = json_decode($get_data, true);
 
             // $strJsonFileContents = file_get_contents("users.json");
@@ -48,7 +46,6 @@
                 array_push($users, $actualUser);
             }
             $total = 0;
-            // echo $apiURL . $user->id;
             foreach ($users as $user) : ?>
                 <tr class="item_row">
                     <td> <?php echo ++$total; ?></td>
@@ -80,7 +77,7 @@
 
     <?php
     if (isset($_POST['delete' . $user->id])) {
-        $delete_data = callAPI("DELETE", $apiURL . $user->id, false);
+        $delete_data = callAPI("DELETE", $apiURL . "users/" . $user->id, false);
         header("Location: usersList.php");
     }
     ?>
