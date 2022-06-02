@@ -17,6 +17,7 @@ export class BooksRoutes extends CommonRoutesConfig {
     this.app.param(`userId`, BooksMiddleware.extractUserId);
     this.app
       .route(`/users/:userId/books`)
+      .all(UsersMiddleware.validateUserExists)
       .get(BooksController.getBooksByUserId)
       .post(
         BooksMiddleware.validateRequiredBookBodyFields,
@@ -27,16 +28,23 @@ export class BooksRoutes extends CommonRoutesConfig {
     this.app.param(`userId`, UsersMiddleware.extractUserId);
     this.app
       .route(`/users/:userId/books/:bookId`)
-      .all(BooksMiddleware.validateBookExists)
+      .all([
+        UsersMiddleware.validateUserExists,
+        BooksMiddleware.validateBookExists,
+      ])
       .get(BooksController.getBookByUserAndId)
       .delete(BooksController.removeBook);
 
     this.app.put(`/users/:userId/books/:bookId`, [
+      UsersMiddleware.validateUserExists,
       BooksMiddleware.validateRequiredBookBodyFields,
       BooksController.put,
     ]);
 
-    this.app.patch(`/users/:userId/books/:bookId`, [BooksController.patch]);
+    this.app.patch(`/users/:userId/books/:bookId`, [
+      UsersMiddleware.validateUserExists,
+      BooksController.patch,
+    ]);
 
     return this.app;
   }
