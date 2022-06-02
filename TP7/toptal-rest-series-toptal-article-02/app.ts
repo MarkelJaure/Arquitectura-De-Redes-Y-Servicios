@@ -1,12 +1,21 @@
 import cors from "cors";
 import debug from "debug";
+import dotenv from "dotenv";
 import express from "express";
 import * as expressWinston from "express-winston";
 import * as http from "http";
 import * as winston from "winston";
+import { AuthRoutes } from "./auth/auth.routes.config";
 import { BooksRoutes } from "./books/books.routes.config";
 import { CommonRoutesConfig } from "./common/common.routes.config";
 import { UsersRoutes } from "./users/users.routes.config";
+
+const dotenvResult = dotenv.config();
+if (dotenvResult.error) {
+  throw dotenvResult.error;
+} else {
+  console.log(dotenvResult);
+}
 
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);
@@ -34,6 +43,7 @@ app.use(expressWinston.logger(loggerOptions));
 
 routes.push(new UsersRoutes(app));
 routes.push(new BooksRoutes(app));
+routes.push(new AuthRoutes(app));
 
 const runningMessage = `Server running at http://localhost:${port}`;
 app.get("/", (req: express.Request, res: express.Response) => {
