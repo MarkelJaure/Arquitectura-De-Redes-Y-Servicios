@@ -31,6 +31,7 @@
             $get_data = callAPI('GET', $apiURL . "users/", false);
             $response = json_decode($get_data, true);
 
+
             // $strJsonFileContents = file_get_contents("users.json");
             // $array = json_decode($strJsonFileContents, true);
 
@@ -72,6 +73,10 @@
 
     <form method="POST" action="userDetail.php">
         <button class="add-button">Agregar usuario <i class="fa fa-plus"></i></button>
+    </form>
+
+    <form method="POST" action="login.php">
+        <button class="login-button">Iniciar sesion </i></button>
     </form>
 
 

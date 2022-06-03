@@ -29,6 +29,7 @@ function callAPI($method, $url, $data)
     curl_setopt($curl, CURLOPT_HTTPHEADER, array(
         'APIKEY: 111111111111111111111',
         'Content-Type: application/json',
+        'Authorization: Bearer ' . $_COOKIE["accessToken"]
     ));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);

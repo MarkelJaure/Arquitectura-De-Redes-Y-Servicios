@@ -2,6 +2,7 @@ import { CommonRoutesConfig } from '../common/common.routes.config';
 import UsersController from './controllers/users.controller';
 import UsersMiddleware from './middleware/users.middleware';
 import express from 'express';
+import jwtMiddleware from '../auth/middleware/jwt.middleware';
 
 export class UsersRoutes extends CommonRoutesConfig {
     constructor(app: express.Application) {
@@ -11,7 +12,7 @@ export class UsersRoutes extends CommonRoutesConfig {
     configureRoutes() {
         this.app
             .route(`/users`)
-            .get(UsersController.listUsers)
+            .get(jwtMiddleware.validJWTNeeded, UsersController.listUsers)
             .post(
                 UsersMiddleware.validateRequiredUserBodyFields,
                 UsersMiddleware.validateSameEmailDoesntExist,
@@ -21,11 +22,12 @@ export class UsersRoutes extends CommonRoutesConfig {
         this.app.param(`userId`, UsersMiddleware.extractUserId);
         this.app
             .route(`/users/:userId`)
-            .all(UsersMiddleware.validateUserExists)
+            .all(jwtMiddleware.validJWTNeeded, UsersMiddleware.validateUserExists)
             .get(UsersController.getUserById)
             .delete(UsersController.removeUser);
 
         this.app.put(`/users/:userId`, [
+            jwtMiddleware.validJWTNeeded,
             UsersMiddleware.validateRequiredUserBodyFields,
             UsersMiddleware.validateSameEmailBelongToSameUser,
             UsersController.put,

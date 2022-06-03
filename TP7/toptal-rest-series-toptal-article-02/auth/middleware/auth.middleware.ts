@@ -19,12 +19,12 @@ class AuthMiddleware {
           email: user.email,
           password: user.password,
         };
+        console.log(user)
         return next();
       }
     }
-    // Giving the same message in both cases
-    // helps protect against cracking attempts:
-    res.status(400).send({ errors: ["Invalid email and/or password"] });
+
+    res.status(400).send({ error: "Email o Password incorrecta" });
   }
 }
 

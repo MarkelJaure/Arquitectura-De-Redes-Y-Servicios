@@ -4,6 +4,7 @@ import { CommonRoutesConfig } from "../common/common.routes.config";
 import BodyValidationMiddleware from "../common/middleware/body.validation.middleware";
 import authController from "./controllers/auth.controller";
 import authMiddleware from "./middleware/auth.middleware";
+import jwtMiddleware from './middleware/jwt.middleware';
 
 export class AuthRoutes extends CommonRoutesConfig {
   constructor(app: express.Application) {
@@ -16,6 +17,19 @@ export class AuthRoutes extends CommonRoutesConfig {
       body("password").isString(),
       BodyValidationMiddleware.verifyBodyFieldsErrors,
       authMiddleware.verifyUserPassword,
+      authController.createJWT,
+    ]);
+
+    this.app.get(`/auth`, [
+      jwtMiddleware.validJWTNeeded,
+
+
+    ]);
+
+    this.app.post(`/auth/refresh-token`, [
+      jwtMiddleware.validJWTNeeded,
+      jwtMiddleware.verifyRefreshBodyField,
+      jwtMiddleware.validRefreshNeeded,
       authController.createJWT,
     ]);
     return this.app;

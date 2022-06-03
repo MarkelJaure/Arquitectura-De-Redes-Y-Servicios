@@ -13,6 +13,8 @@ import { UsersRoutes } from "./users/users.routes.config";
 const dotenvResult = dotenv.config();
 if (dotenvResult.error) {
   throw dotenvResult.error;
+} else {
+  console.log(dotenvResult)
 }
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);

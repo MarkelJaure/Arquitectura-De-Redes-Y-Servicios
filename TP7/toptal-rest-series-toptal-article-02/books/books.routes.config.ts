@@ -1,4 +1,5 @@
 import express from "express";
+import jwtMiddleware from "../auth/middleware/jwt.middleware";
 import { CommonRoutesConfig } from "../common/common.routes.config";
 import UsersMiddleware from "../users/middleware/users.middleware";
 import BooksController from "./controllers/books.controller";
@@ -17,7 +18,7 @@ export class BooksRoutes extends CommonRoutesConfig {
     this.app.param(`userId`, BooksMiddleware.extractUserId);
     this.app
       .route(`/users/:userId/books`)
-      .all(UsersMiddleware.validateUserExists)
+      .all(jwtMiddleware.validJWTNeeded, UsersMiddleware.validateUserExists)
       .get(BooksController.getBooksByUserId)
       .post(
         BooksMiddleware.validateRequiredBookBodyFields,
@@ -29,6 +30,7 @@ export class BooksRoutes extends CommonRoutesConfig {
     this.app
       .route(`/users/:userId/books/:bookId`)
       .all([
+        jwtMiddleware.validJWTNeeded,
         UsersMiddleware.validateUserExists,
         BooksMiddleware.validateBookExists,
       ])
@@ -42,7 +44,6 @@ export class BooksRoutes extends CommonRoutesConfig {
     ]);
 
     this.app.patch(`/users/:userId/books/:bookId`, [
-      UsersMiddleware.validateUserExists,
       BooksController.patch,
     ]);
 
