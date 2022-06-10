@@ -11,12 +11,11 @@
 <?php
 require_once "callAPI.php";
 
-$user = getLogguedUser();
-if (empty($user)) {
+$logguedUser = getLogguedUser();
+if (empty($logguedUser)) {
     echo "No se encuentra logueado";
 } else {
-    echo "Logueado como: " . $user["email"];
-
+    echo "Logueado como: " . $logguedUser["email"];
 ?>
 
 <?php
@@ -71,7 +70,15 @@ if ($response !== null) {
         <br><label>Ingrese su nivel de permiso:</label>
         <input class="input1" type="number" name="aPermissionLevel" placeholder="Ingrese su nivel de permiso..." value="<?php echo $actualUser->permissionLevel ?>">
 
-        <br> <input style="margin-left: 30px" class="login-button" name="submit" type="submit" value="<?php echo ($id !== null) ? 'Editar usuario' : 'Crear usuario'; ?>">
+        <?php
+        if ($id === null || (!empty($logguedUser["permissionLevel"]) && $logguedUser["permissionLevel"] == PermissionLevelEnum::ADMIN_PERMISSION->value)) {
+        ?>
+
+            <br> <input style="margin-left: 30px" class="login-button" name="submit" type="submit" value="<?php echo ($id !== null) ? 'Editar usuario' : 'Crear usuario'; ?>">
+
+        <?php
+        }
+        ?>
 
         <?php
 

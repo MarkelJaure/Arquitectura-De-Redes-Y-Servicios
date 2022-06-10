@@ -3,8 +3,6 @@ import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import { Jwt } from '../../common/types/jwt';
 import usersService from '../../users/services/users.service';
-import usersMiddleware from '../../users/middleware/users.middleware';
-import usersController from '../../users/controllers/users.controller';
 
 // @ts-expect-error
 const jwtSecret: string = process.env.JWT_SECRET;
@@ -61,7 +59,6 @@ class JwtMiddleware {
             try {
                 const authorization = req.headers['authorization'].split(' ');
                 if (authorization[0] !== 'Bearer' || !authorization[1]) {
-                    console.log("No hay JWT")
                     return res.status(401).send();
                 } else {
                     res.locals.jwt = jwt.verify(
@@ -71,10 +68,8 @@ class JwtMiddleware {
 
                     const user = await usersService.readById(res.locals.jwt.userId)
                     if (user) {
-                        console.log("JWT verificado")
                         next();
                     } else {
-                        console.log("Cookie no coincide con usuario real")
                         res.status(401).send();
                     }
                 }
@@ -97,7 +92,6 @@ class JwtMiddleware {
             try {
                 const authorization = req.headers['authorization'].split(' ');
                 if (authorization[0] !== 'Bearer' || !authorization[1]) {
-                    console.log("No hay JWT")
                     return res.status(401).send();
                 } else {
                     res.locals.jwt = jwt.verify(
@@ -107,10 +101,8 @@ class JwtMiddleware {
 
                     const user = await usersService.readById(res.locals.jwt.userId)
                     if (user) {
-                        console.log("JWT verificado")
                         res.status(201).send(user);
                     } else {
-                        console.log("Cookie no coincide con usuario real")
                         res.status(401).send();
                     }
                 }
