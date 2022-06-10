@@ -77,6 +77,13 @@
                                 <button type="delete" class="remove-button" name=<?php echo "delete" . $user->id; ?>><i class="fa fa-trash"></i></button>
                             </form>
 
+                            <?php
+                            if (isset($_POST['delete' . $user->id])) {
+                                $delete_data = callAPI("DELETE", $apiURL . "users/" . $user->id, false);
+                                header("Location: usersList.php");
+                            }
+                            ?>
+
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -96,12 +103,7 @@
     </form>
 
 
-    <?php
-    if (isset($_POST['delete' . $user->id])) {
-        $delete_data = callAPI("DELETE", $apiURL . "users/" . $user->id, false);
-        header("Location: usersList.php");
-    }
-    ?>
+
 
 
 </body>

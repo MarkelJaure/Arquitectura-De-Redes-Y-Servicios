@@ -44,6 +44,7 @@ class JwtMiddleware {
                 userId: user.id,
                 email: user.email,
                 password: user.password,
+                permissionLevel: user.permissionLevel
             };
             return next();
         } else {
@@ -63,7 +64,6 @@ class JwtMiddleware {
                     console.log("No hay JWT")
                     return res.status(401).send();
                 } else {
-                    console.log(authorization)
                     res.locals.jwt = jwt.verify(
                         authorization[1],
                         process.env.JWT_SECRET!
@@ -92,7 +92,6 @@ class JwtMiddleware {
     async GetLoggedUser(
         req: express.Request,
         res: express.Response,
-        next: express.NextFunction
     ) {
         if (req.headers['authorization']) {
             try {
@@ -101,7 +100,6 @@ class JwtMiddleware {
                     console.log("No hay JWT")
                     return res.status(401).send();
                 } else {
-                    console.log(authorization)
                     res.locals.jwt = jwt.verify(
                         authorization[1],
                         process.env.JWT_SECRET!

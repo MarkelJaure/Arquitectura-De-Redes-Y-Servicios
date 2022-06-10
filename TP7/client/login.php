@@ -2,6 +2,21 @@
     <link rel="stylesheet" href="./styles.css">
 </head>
 
+<?php
+require_once "callAPI.php";
+
+$user = getLogguedUser();
+if (empty($user)) {
+    echo "No se encuentra logueado";
+} else {
+    echo "Logueado como: " . $user["email"];
+
+?>
+
+<?php
+}
+?>
+
 <body>
     <h2>Login en PHP</h2>
     <form method="post">
@@ -20,20 +35,7 @@
     </form>
 </body>
 
-<?php
-require_once "callAPI.php";
 
-$user = getLogguedUser();
-if (empty($user)) {
-    echo "No se encuentra logueado";
-} else {
-    echo "Logueado como: " . $user["email"];
-
-?>
-
-<?php
-}
-?>
 
 <?php
 

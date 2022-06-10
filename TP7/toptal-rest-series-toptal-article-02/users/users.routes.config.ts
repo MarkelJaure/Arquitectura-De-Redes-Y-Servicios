@@ -3,6 +3,8 @@ import UsersController from './controllers/users.controller';
 import UsersMiddleware from './middleware/users.middleware';
 import express from 'express';
 import jwtMiddleware from '../auth/middleware/jwt.middleware';
+import { PermissionLevel } from '../common/middleware/common.permissionlevel.enum';
+import CommonPermissionMiddleware from '../common/middleware/common.permission.middleware';
 
 export class UsersRoutes extends CommonRoutesConfig {
     constructor(app: express.Application) {
@@ -24,10 +26,17 @@ export class UsersRoutes extends CommonRoutesConfig {
             .route(`/users/:userId`)
             .all(jwtMiddleware.validJWTNeeded, UsersMiddleware.validateUserExists)
             .get(UsersController.getUserById)
-            .delete(UsersController.removeUser);
+            .delete(
+                [CommonPermissionMiddleware.permissionLevelRequired(
+                    PermissionLevel.ADMIN_PERMISSION
+                ),
+                UsersController.removeUser]);
 
         this.app.put(`/users/:userId`, [
             jwtMiddleware.validJWTNeeded,
+            CommonPermissionMiddleware.permissionLevelRequired(
+                PermissionLevel.ADMIN_PERMISSION
+            ),
             UsersMiddleware.validateRequiredUserBodyFields,
             UsersMiddleware.validateSameEmailBelongToSameUser,
             UsersController.put,

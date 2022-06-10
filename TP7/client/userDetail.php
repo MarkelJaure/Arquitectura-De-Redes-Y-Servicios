@@ -91,16 +91,17 @@ if ($response !== null) {
             } else {
                 $newUser = new User();
                 $newUser->email = $email;
-                $newUser->password = $password;
                 $newUser->firstName = $firstName;
                 $newUser->lastName = $lastName;
                 $newUser->permissionLevel = $permissionLevel;
+                $newUser->password = $password;
 
                 if ($theId !== "") { //Editar usuario (PUT / PATCH)
                     echo "Actualizando Usuario";
                     $put_data = callAPI('PUT', $apiURL . "users/" . $theId, json_encode($newUser));
                 } else { //Crear usuario (POST)
                     echo "Creando Usuario";
+
                     $post_data = callAPI('POST', $apiURL . "users/", json_encode($newUser));
                 }
                 header("Location: usersList.php");
