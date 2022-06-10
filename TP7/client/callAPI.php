@@ -89,3 +89,9 @@ class Book
     public $title;
     public $autor;
 }
+
+enum PermissionLevelEnum: int
+{
+    case FREE_PERMISSION = 1;
+    case ADMIN_PERMISSION = 2;
+}

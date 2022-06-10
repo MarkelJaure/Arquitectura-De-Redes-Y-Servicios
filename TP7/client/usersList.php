@@ -14,12 +14,11 @@
     <?php
     require_once "callAPI.php";
 
-    $user = getLogguedUser();
-    if (empty($user)) {
+    $logguedUser = getLogguedUser();
+    if (empty($logguedUser)) {
         echo "No se encuentra logueado";
     } else {
-        echo "Logueado como: " . $user["email"];
-
+        echo "Logueado como: " . $logguedUser["email"];
     ?>
 
         <h2>Tabla de usuarios</h2>
@@ -72,9 +71,19 @@
                                 <button type="edit" class="edit-button"><i class="fa fa-edit"></i></button>
                             </form>
                         </td>
+
                         <td>
+
+
                             <form method="POST" style="display: inline;">
-                                <button type="delete" class="remove-button" name=<?php echo "delete" . $user->id; ?>><i class="fa fa-trash"></i></button>
+                                <?php
+                                if (!empty($logguedUser["permissionLevel"]) && $logguedUser["permissionLevel"] == PermissionLevelEnum::ADMIN_PERMISSION->value) {
+                                ?>
+
+                                    <button type="delete" class="remove-button" name=<?php echo "delete" . $user->id; ?>><i class="fa fa-trash"></i></button>
+                                <?php
+                                }
+                                ?>
                             </form>
 
                             <?php
@@ -83,8 +92,9 @@
                                 header("Location: usersList.php");
                             }
                             ?>
-
                         </td>
+
+
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -101,10 +111,6 @@
     <form method="POST" action="login.php">
         <button class="login-button">Iniciar sesion </i></button>
     </form>
-
-
-
-
 
 </body>
 

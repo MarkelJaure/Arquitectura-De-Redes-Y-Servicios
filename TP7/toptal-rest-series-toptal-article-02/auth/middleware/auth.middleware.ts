@@ -17,8 +17,7 @@ class AuthMiddleware {
         req.body = {
           userId: user.id,
           email: user.email,
-          permissionLevel: user.permissionLevel,
-          password: user.password
+          password: user.password,
         };
         console.log(user)
         return next();
