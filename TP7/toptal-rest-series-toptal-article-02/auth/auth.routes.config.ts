@@ -21,9 +21,7 @@ export class AuthRoutes extends CommonRoutesConfig {
     ]);
 
     this.app.get(`/auth`, [
-      jwtMiddleware.validJWTNeeded,
-
-
+      jwtMiddleware.GetLoggedUser,
     ]);
 
     this.app.post(`/auth/refresh-token`, [

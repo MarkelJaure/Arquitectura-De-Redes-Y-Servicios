@@ -21,6 +21,21 @@
 </body>
 
 <?php
+require_once "callAPI.php";
+
+$user = getLogguedUser();
+if (empty($user)) {
+    echo "No se encuentra logueado";
+} else {
+    echo "Logueado como: " . $user["email"];
+
+?>
+
+<?php
+}
+?>
+
+<?php
 
 require_once "callAPI.php";
 

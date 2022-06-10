@@ -64,6 +64,14 @@ function getParam($variableName, $default = null)
     return $default;
 }
 
+function getLogguedUser()
+{
+    $apiURL = 'http://localhost:3000/';
+    $get_data = callAPI('GET',  $apiURL . "auth/", false);
+    $response = json_decode($get_data, true);
+    return $response;
+}
+
 class User
 {
     public $id;

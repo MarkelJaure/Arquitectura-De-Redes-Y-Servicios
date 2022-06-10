@@ -88,6 +88,44 @@ class JwtMiddleware {
             });
         }
     }
+
+    async GetLoggedUser(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ) {
+        if (req.headers['authorization']) {
+            try {
+                const authorization = req.headers['authorization'].split(' ');
+                if (authorization[0] !== 'Bearer' || !authorization[1]) {
+                    console.log("No hay JWT")
+                    return res.status(401).send();
+                } else {
+                    console.log(authorization)
+                    res.locals.jwt = jwt.verify(
+                        authorization[1],
+                        process.env.JWT_SECRET!
+                    ) as Jwt;
+
+                    const user = await usersService.readById(res.locals.jwt.userId)
+                    if (user) {
+                        console.log("JWT verificado")
+                        res.status(201).send(user);
+                    } else {
+                        console.log("Cookie no coincide con usuario real")
+                        res.status(401).send();
+                    }
+                }
+            } catch (err) {
+                console.log(err)
+                return res.status(403).send();
+            }
+        } else {
+            return res.status(401).send({
+                error: `Usted no se encuentra logueado`,
+            });
+        }
+    }
 }
 
 export default new JwtMiddleware();

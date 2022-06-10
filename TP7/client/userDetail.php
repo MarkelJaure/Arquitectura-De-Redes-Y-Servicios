@@ -11,6 +11,21 @@
 <?php
 require_once "callAPI.php";
 
+$user = getLogguedUser();
+if (empty($user)) {
+    echo "No se encuentra logueado";
+} else {
+    echo "Logueado como: " . $user["email"];
+
+?>
+
+<?php
+}
+?>
+
+<?php
+require_once "callAPI.php";
+
 $id = getParam("id");
 
 $get_data = callAPI('GET',  $apiURL . "users/" . $id, false);
