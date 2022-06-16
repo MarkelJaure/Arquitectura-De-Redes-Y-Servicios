@@ -70,7 +70,7 @@ if ($response !== null) {
         <br><label>Ingrese su nivel de permiso:</label>
         <input class="input1" type="number" name="aPermissionLevel" placeholder="Ingrese su nivel de permiso..." value="<?php echo $actualUser->permissionLevel ?>">
 
-        <?php
+        <?php //Mostrar boton solo si estas creando usuario o sos admin
         if ($id === null || (!empty($logguedUser["permissionLevel"]) && $logguedUser["permissionLevel"] == PermissionLevelEnum::ADMIN_PERMISSION->value)) {
         ?>
 

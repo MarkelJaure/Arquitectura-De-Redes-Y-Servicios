@@ -18,6 +18,7 @@ class AuthMiddleware {
           userId: user.id,
           email: user.email,
           password: user.password,
+          permissionLevel: user.permissionLevel
         };
         console.log(user)
         return next();

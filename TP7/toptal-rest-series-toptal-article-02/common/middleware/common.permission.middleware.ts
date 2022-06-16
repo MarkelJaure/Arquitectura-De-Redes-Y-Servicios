@@ -15,6 +15,7 @@ class CommonPermissionMiddleware {
                 const userPermissionLevel = parseInt(
                     res.locals.jwt.permissionLevel
                 );
+                //console.log(userPermissionLevel + " " + requiredPermissionLevel)
                 if (userPermissionLevel == requiredPermissionLevel) {
                     next();
                 } else {

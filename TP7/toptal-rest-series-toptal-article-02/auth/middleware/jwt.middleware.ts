@@ -59,7 +59,9 @@ class JwtMiddleware {
             try {
                 const authorization = req.headers['authorization'].split(' ');
                 if (authorization[0] !== 'Bearer' || !authorization[1]) {
-                    return res.status(401).send();
+                    return res.status(401).send({
+                        error: `Usted no se encuentra logueado`
+                    });
                 } else {
                     res.locals.jwt = jwt.verify(
                         authorization[1],
@@ -70,12 +72,14 @@ class JwtMiddleware {
                     if (user) {
                         next();
                     } else {
-                        res.status(401).send();
+                        res.status(401).send({
+                            error: `Usted no se encuentra logueado`,
+                        });
                     }
                 }
             } catch (err) {
                 console.log(err)
-                return res.status(403).send();
+                return res.status(403).send({ error: err });
             }
         } else {
             return res.status(401).send({
@@ -102,6 +106,41 @@ class JwtMiddleware {
                     const user = await usersService.readById(res.locals.jwt.userId)
                     if (user) {
                         res.status(201).send(user);
+                    } else {
+                        res.status(401).send();
+                    }
+                }
+            } catch (err) {
+                console.log(err)
+                return res.status(403).send();
+            }
+        } else {
+            return res.status(401).send({
+                error: `Usted no se encuentra logueado`,
+            });
+        }
+    }
+
+    async SetLoggedUser(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ) {
+        if (req.headers['authorization']) {
+            try {
+                const authorization = req.headers['authorization'].split(' ');
+                if (authorization[0] !== 'Bearer' || !authorization[1]) {
+                    return res.status(401).send();
+                } else {
+                    res.locals.jwt = jwt.verify(
+                        authorization[1],
+                        process.env.JWT_SECRET!
+                    ) as Jwt;
+
+                    const user = await usersService.readById(res.locals.jwt.userId)
+                    if (user) {
+                        req.body.user = user
+                        next();
                     } else {
                         res.status(401).send();
                     }

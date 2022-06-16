@@ -12,10 +12,8 @@ class JWTController {
         aAuthorization: string) {
         const authorization = aAuthorization.split(' ');
         if (authorization[0] !== 'Bearer' || !authorization[1]) { //Corte por no token
-            console.log("No hay JWT")
-            res.status(401).send();
+            return "Error: No hay un JWT"
         } else {
-            console.log("Leyendo JWT")
             res.locals.jwt = jwt.verify(
                 authorization[1],
                 process.env.JWT_SECRET!
@@ -23,11 +21,9 @@ class JWTController {
 
             const user = await usersService.readById(res.locals.jwt.userId)
             if (user) { //JWT correcto
-                console.log("JWT verificado")
                 return user;
             } else { //Corte por token no valido
-                console.log("Cookie no coincide con usuario real")
-                res.status(401).send();
+                return "Error: El Access Token no es valido"
             }
         }
     }

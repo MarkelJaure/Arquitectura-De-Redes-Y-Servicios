@@ -9,6 +9,13 @@ import { AuthRoutes } from "./auth/auth.routes.config";
 import { BooksRoutes } from "./books/books.routes.config";
 import { CommonRoutesConfig } from "./common/common.routes.config";
 import { UsersRoutes } from "./users/users.routes.config";
+import rateLimit from 'express-rate-limit';
+import { PermissionLevel } from "./common/middleware/common.permissionlevel.enum";
+import { CreateUserDto } from "./users/dto/create.user.dto";
+import jwtMiddleware from "./auth/middleware/jwt.middleware";
+import jwtController from "./auth/controllers/jwt.controller";
+
+
 
 const dotenvResult = dotenv.config();
 if (dotenvResult.error) {
@@ -22,6 +29,43 @@ const port = 3000;
 const routes: Array<CommonRoutesConfig> = [];
 const debugLog: debug.IDebugger = debug("app");
 
+const loginLimiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: 5, // Limit each IP to 5 requests per `window` (here, per 1 minute)
+  message: { error: 'Demasiadas solicitudes de login en 1 minuto (max 5)' },
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
+
+const isAdmin = async (user: any) => {
+  return user.permissionLevel == PermissionLevel.ADMIN_PERMISSION
+}
+
+const isLogged = async (user: any) => {
+  return user.id !== null
+}
+
+const usersLimiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: async (request, response) => {
+    var user = await jwtController.getInfoJWT(response, request.headers['authorization']!);
+    //Chequear que puede volver o no un usuario
+
+    if ((await isLogged(user) && await isAdmin(user))) {
+      console.log("Usuario Admin")
+      return 15
+    } else {
+      console.log("Usuario Free")
+      return 3
+    }
+  },// Limit each IP to 5 requests per `window` (here, per 1 minute)
+  message: { error: 'Demasiadas solicitudes a /users en 1 minuto' },
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
+
+app.post('/auth', loginLimiter)
+app.get('/users', usersLimiter)
 app.use(express.json());
 app.use(cors());
 
