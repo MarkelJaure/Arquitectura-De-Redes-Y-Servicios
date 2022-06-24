@@ -70,12 +70,13 @@ int main(int argc, char *argv[])
     printf("\n");
     printf("Process %d is active.\n", processId);
 
-    length = 11;
+    length = 12;
+    escalar = 10;
+
     tag_done = length + 1;
     cantidad = trunc(length / (num_procs - 1));
     subtotal = cantidad * (num_procs - 1);
     diferencia = length - subtotal;
-    escalar = 10;
 
     if (processId == processMaster)
     {
